@@ -24,7 +24,7 @@ interface LotteryWheelProps {
   onChargeEnd: () => void;
 }
 
-export default function LotteryWheel({ 
+export default function LuckyWheel({ 
   options, 
   isSpinning, 
   power, 

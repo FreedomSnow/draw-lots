@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import styles from './Home.module.css';
 import LotteryJar from '@/components/LotteryJar';
-import LotteryWheel from '@/components/LotteryWheel';
+import LuckyWheel from '@/components/luckywheel/LuckyWheel';
 import OptionInput from '@/components/OptionInput';
 import ResultDisplay from '@/components/ResultDisplay';
 import ModeSelector from '@/components/ModeSelector';
+import { t, Lang } from '@/lib/i18n';
 
-export default function Home() {
+interface HomeProps {
+  lang: Lang;
+  setLang: (lang: Lang) => void;
+}
+
+export default function Home({ lang, setLang }: HomeProps) {
   // 状态管理
   const [mode, setMode] = useState<'jar' | 'wheel'>('jar');
   const [options, setOptions] = useState<string[]>([]);
@@ -95,77 +101,70 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 flex flex-col items-center justify-between p-6">
-      <div className="w-full max-w-md mx-auto">
-        {/* 标题 */}
-        <motion.h1 
-          className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          神秘抓阄
-        </motion.h1>
-        
-        {/* 模式选择 */}
-        <ModeSelector mode={mode} setMode={setMode} />
-        
-        {/* 选项输入 */}
-        <OptionInput 
-          options={options} 
-          setOptions={handleOptionsChange} 
-          disabled={isDrawing}
-        />
-        
-        {/* 抓阄区域 */}
-        {options.length >= 2 && !result ? (
-          mode === 'jar' ? (
-            <LotteryJar 
-              options={options} 
-              isDrawing={isDrawing}
-              startDrawing={startDrawing}
-              drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
-            />
-          ) : (
-            <LotteryWheel 
-              options={options} 
-              isSpinning={isDrawing}
-              power={power}
-              isCharging={isCharging}
-              onChargeStart={handleChargeStart}
-              onChargeEnd={handleChargeEnd}
-            />
-          )
-        ) : options.length < 2 && !result ? (
-          <div className="mt-10 p-6 bg-gray-800/50 rounded-xl border border-gray-700 text-center">
-            <p className="text-gray-400 mb-4">请至少输入2个选项</p>
-            <div className="w-24 h-24 mx-auto relative">
-              {mode === 'jar' ? (
-                <div className="w-full h-full bg-gray-700/30 rounded-full flex items-center justify-center">
-                  <i className="fa-solid fa-jar-wheat text-gray-500 text-4xl"></i>
-                </div>
-              ) : (
-                <div className="w-full h-full bg-gray-700/30 rounded-full flex items-center justify-center">
-                  <i className="fa-solid fa-circle-notch text-gray-500 text-4xl"></i>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : null}
-        
-        {/* 结果展示 */}
-        {result && (
-          <ResultDisplay 
-            result={result} 
-            tryAgain={tryAgain} 
-            resetGame={resetGame}
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #18181b, #09090b)', color: '#f3f4f6', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 0 }}>
+
+
+      {/* 中间层：选项输入 */}
+      <div className={styles['home-main']}>
+        <div className={styles['home-content']}>
+          <OptionInput 
+            options={options} 
+            setOptions={handleOptionsChange} 
+            disabled={isDrawing}
           />
-        )}
+        </div>
       </div>
-      
-      {/* 页脚 */}
-      <div className="text-center text-gray-500 text-sm mt-12">
-        <p>神秘抓阄 &copy; {new Date().getFullYear()}</p>
+
+      {/* 底部层：模式选择和抓阄区域 */}
+      <div className={styles['home-bottom']}>
+        <div className={styles['home-bottom-inner']}>
+          <ModeSelector mode={mode} setMode={setMode} />
+          {/* 抓阄区域 */}
+          {options.length >= 2 && !result ? (
+            mode === 'jar' ? (
+              <LotteryJar 
+                options={options} 
+                isDrawing={isDrawing}
+                startDrawing={startDrawing}
+                drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
+                // lang={lang}
+              />
+            ) : (
+              <LuckyWheel 
+                options={options} 
+                isSpinning={isDrawing}
+                power={power}
+                isCharging={isCharging}
+                onChargeStart={handleChargeStart}
+                onChargeEnd={handleChargeEnd}
+                // lang={lang}
+              />
+            )
+          ) : options.length < 2 && !result ? (
+            <div className={styles['home-empty']}>
+              <p style={{ color: '#9ca3af', marginBottom: 16 }}>{t(lang, 'pleaseInput2')}</p>
+              <div className={styles['home-empty-icon']}>
+                {mode === 'jar' ? (
+                  <i className="fa-solid fa-jar-wheat" style={{ color: '#6b7280', fontSize: 32 }}></i>
+                ) : (
+                  <i className="fa-solid fa-circle-notch" style={{ color: '#6b7280', fontSize: 32 }}></i>
+                )}
+              </div>
+            </div>
+          ) : null}
+          {/* 结果展示 */}
+          {result && (
+            <ResultDisplay 
+              result={result} 
+              tryAgain={tryAgain} 
+              resetGame={resetGame}
+            />
+          )}
+        </div>
+        {/* 页脚 */}
+        <div className={styles['home-footer']}>
+          <p>{t(lang, 'siteName')} &copy; {new Date().getFullYear()}</p>
+        </div>
       </div>
     </div>
   );
