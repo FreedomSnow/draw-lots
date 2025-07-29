@@ -1,0 +1,47 @@
+/* ModeSelector 组件样式 */
+.mode-selector-root {
+  margin-bottom: 2rem;
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid #374151;
+  background: rgba(31,41,55,0.5);
+  /* background: #2dd4bf; */
+}
+.mode-selector-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mode-selector-btn {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.mode-selector-btn-jar {
+  background: linear-gradient(to right, #a78bfa, #f472b6);
+  color: #fff;
+  box-shadow: 0 2px 8px 0 #a78bfa33;
+}
+.mode-selector-btn-wheel {
+  background: linear-gradient(to right, #38bdf8, #2dd4bf);
+  color: #fff;
+  box-shadow: 0 2px 8px 0 #38bdf833;
+}
+.mode-selector-btn-inactive {
+  color: #9ca3af;
+  background: none;
+}
+.mode-selector-btn-inactive:hover {
+  color: #f3f4f6;
+  background: #23232b;
+}

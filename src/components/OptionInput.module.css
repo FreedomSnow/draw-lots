@@ -1,0 +1,135 @@
+/* 标题和添加按钮一行分布 */
+.option-input-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+/* OptionInput 组件样式 */
+.option-input-root {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #27272a;
+  background: rgba(31, 41, 55, 0.5);
+  /* background: #a78bfa; */
+}
+
+.option-input-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+.option-input-title i {
+  margin-right: 0.5rem;
+  color: #a78bfa;
+}
+/* 小字说明样式 */
+.option-input-tip {
+  font-size: 0.7em;
+  color: #9ca3af;
+  margin-left: 0.85em;
+  font-weight: 400;
+}
+
+.option-input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.option-input-input {
+  flex: 1;
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: #f3f4f6;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.option-input-input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px #a78bfa33;
+}
+.option-input-add-btn {
+  background: #a78bfa;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  transition: background 0.2s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.option-input-add-btn:hover:not(:disabled) {
+  background: #7c3aed;
+}
+.option-input-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.option-input-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  gap: 10px;
+  margin-top: 12px;
+  align-items: stretch;
+  max-height: 10rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+.option-input-empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 1.5rem 0;
+}
+.option-input-empty i {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.option-input-item {
+  display: flex;
+  align-items: center;
+  background: rgba(24, 24, 27, 0.7);
+  border-radius: 8px;
+  border: 1px solid #27272a;
+  padding: 10px 15px;
+  min-height: 38px;
+  /* max-width: 100%; */
+  width: 120px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: box-shadow 0.2s;
+  /* grid gap handled by grid parent */
+}
+
+.option-input-item-text {
+  display: inline-block;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 0.5em;
+}
+.option-input-item-remove {
+  color: #6b7280;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+.option-input-item-remove:hover:not(:disabled) {
+  color: #ef4444;
+}
+.option-input-item-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
