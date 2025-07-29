@@ -101,12 +101,10 @@ export default function Home({ lang, setLang }: HomeProps) {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #18181b, #09090b)', color: '#f3f4f6', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 0 }}>
-
-
+    <div className={styles['home-root']}>
       {/* 中间层：选项输入 */}
-      <div className={styles['home-main']}>
-        <div className={styles['home-content']}>
+      <div className={styles['home-top']}>
+        <div className={styles['home-input']}>
           <OptionInput 
             options={options} 
             setOptions={handleOptionsChange} 
@@ -142,12 +140,12 @@ export default function Home({ lang, setLang }: HomeProps) {
             )
           ) : options.length < 2 && !result ? (
             <div className={styles['home-empty']}>
-              <p style={{ color: '#9ca3af', marginBottom: 16 }}>{t(lang, 'pleaseInput2')}</p>
+              <p className={styles['home-empty-tip']}>{t(lang, 'pleaseInput2')}</p>
               <div className={styles['home-empty-icon']}>
                 {mode === 'jar' ? (
-                  <i className="fa-solid fa-jar-wheat" style={{ color: '#6b7280', fontSize: 32 }}></i>
+                  <i className="fa-solid fa-jar-wheat" ></i>
                 ) : (
-                  <i className="fa-solid fa-circle-notch" style={{ color: '#6b7280', fontSize: 32 }}></i>
+                  <i className="fa-solid fa-circle-notch" ></i>
                 )}
               </div>
             </div>

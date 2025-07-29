@@ -12,6 +12,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to bottom, #18181b, #09090b);
 }
 
 html[data-lang='en'], html[data-lang='en'] body, html[data-lang='en'] * {
@@ -32,7 +33,6 @@ html[data-lang='en'], html[data-lang='en'] body, html[data-lang='en'] * {
   justify-content: space-between;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #27272a;
-  background: rgb(17, 17, 20);
   position: sticky;
   top: 0;
   z-index: 10;
