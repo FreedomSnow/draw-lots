@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
 import styles from './LotteryJar.module.css';
+import { t, Lang } from '@/lib/i18n';
 
 interface LotteryJarProps {
   options: string[];
   isDrawing: boolean;
-  startDrawing: () => number;
+  startDrawing: () => void;
   drawingDuration: number;
+  lang: Lang;
 }
 
-export default function LotteryJar({ options, isDrawing, startDrawing }: LotteryJarProps) {
+export default function LotteryJar({ options, isDrawing, startDrawing, lang }: LotteryJarProps) {
   return (
     <div className={styles['lotteryjar-root']}>
       {/* 罐子容器 */}
@@ -50,7 +52,7 @@ export default function LotteryJar({ options, isDrawing, startDrawing }: Lottery
                 }}
               >
                 {/* 竖排文字 */}
-                <span className={styles['lotteryjar-stick-label']}>上上签</span>
+                <span className={styles['lotteryjar-stick-label']}>{t(lang, 'lotteryjar_stick_label')}</span>
               </motion.div>
             ))}
           </div>
@@ -67,12 +69,12 @@ export default function LotteryJar({ options, isDrawing, startDrawing }: Lottery
         {isDrawing ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <i className="fa-solid fa-spinner fa-spin"></i>
-            <span>正在抓阄...</span>
+            <span>{t(lang, 'lotteryjar_drawing')}</span>
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <i className="fa-solid fa-hand-sparkles"></i>
-            <span>开始抓阄</span>
+            <span>{t(lang, 'lotteryjar_start')}</span>
           </div>
         )}
       </button>

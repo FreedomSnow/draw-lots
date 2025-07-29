@@ -1,14 +1,28 @@
 const en = {
   siteName: 'Draw Lots',
   contactUs: 'Contact Us',
+  language: 'English',
   pleaseInput2: 'Please enter at least 2 options',
-  mysteryDraw: 'Mystery Draw',
-  modeJar: 'Lottery Jar',
+  optionPlaceholder: 'Enter options, one per line',
+  modeJar: 'Draw Lots',
   modeWheel: 'Lucky Wheel',
   tryAgain: 'Try Again',
   reset: 'Reset',
-  language: 'English',
-  optionPlaceholder: 'Enter options, one per line',
-  // ...extend as needed
+  option_title: 'Options',
+  option_tip: 'At least 2 options to start',
+  option_placeholder: 'Enter option and add...',
+  option_added: 'Added',
+  lotteryjar_stick_label: 'Best Stick',
+  lotteryjar_drawing: 'Drawing...',
+  lotteryjar_start: 'Start Drawing',
+  luckywheel_power: 'Power',
+  luckywheel_spinning: 'Spinning...',
+  luckywheel_release: 'Release to spin!',
+  luckywheel_charge: 'Hold to charge',
+  // ResultDisplay
+  result_title: 'Result',
+  result_desc: 'The choice of fate is...',
+  result_try_again: 'Try Again',
+  result_reset: 'Input Again',
 };
 export default en;

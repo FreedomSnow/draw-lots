@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import styles from './OptionInput.module.css';
+import { t, Lang } from '@/lib/i18n';
 
 interface OptionInputProps {
   options: string[];
   setOptions: (options: string[]) => void;
   disabled: boolean;
+  lang: Lang;
 }
 
-export default function OptionInput({ options, setOptions, disabled }: OptionInputProps) {
+export default function OptionInput({ options, setOptions, disabled, lang }: OptionInputProps) {
   const [newOption, setNewOption] = useState('');
   
   const addOption = () => {
@@ -18,7 +20,7 @@ export default function OptionInput({ options, setOptions, disabled }: OptionInp
     const updatedOptions = [...options, newOption.trim()];
     setOptions(updatedOptions);
     setNewOption('');
-    toast.success(`已添加: ${newOption.trim()}`);
+    toast.success(t(lang, 'option_added') + ': ' + newOption.trim());
   };
   
   const removeOption = (indexToRemove: number) => {
@@ -29,10 +31,12 @@ export default function OptionInput({ options, setOptions, disabled }: OptionInp
   return (
     <div className={styles['option-input-root']}>
       <div className={styles['option-input-title-row']}>
-        <h2 className={styles['option-input-title']}>
-          <i className="fa-solid fa-list-ul"></i>
-          抓阄选项
-          <span className={styles['option-input-tip']}>至少2个选项开始抓阄</span>
+        <h2 className={styles['option-input-title']} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <i className="fa-solid fa-list-ul" style={{ minWidth: 20, textAlign: 'center' }}></i>
+          </span>
+          {t(lang, 'option_title')}
+          <span className={styles['option-input-tip']}>{t(lang, 'option_tip')}</span>
         </h2>
       </div>
       <div className={styles['option-input-row']}>
@@ -43,7 +47,7 @@ export default function OptionInput({ options, setOptions, disabled }: OptionInp
             if (e.target.value.length <= 15) setNewOption(e.target.value);
           }}
           onKeyPress={(e) => e.key === 'Enter' && addOption()}
-          placeholder="输入选项并添加..."
+          placeholder={t(lang, 'option_placeholder')}
           disabled={disabled}
           className={styles['option-input-input']}
           maxLength={15}

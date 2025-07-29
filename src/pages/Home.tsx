@@ -131,19 +131,21 @@ export default function Home({ lang, setLang }: HomeProps) {
             options={options} 
             setOptions={handleOptionsChange} 
             disabled={isDrawing}
+            lang={lang}
           />
         </div>
       </div>
       {/* 底部层：模式选择和抓阄区域 */}
       <div className={styles['home-bottom']}>
         <div className={styles['home-bottom-inner']}>
-          <ModeSelector mode={mode} setMode={setMode} />
+          <ModeSelector mode={mode} setMode={setMode} lang={lang} />
           {/* 抓阄区域 */}
           {result ? (
             <ResultDisplay 
               result={result} 
               tryAgain={tryAgain} 
               resetGame={resetGame}
+              lang={lang}
             />
           ) : (
             mode === 'jar' ? (
@@ -152,7 +154,7 @@ export default function Home({ lang, setLang }: HomeProps) {
                 isDrawing={isDrawing}
                 startDrawing={startDrawing}
                 drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
-                // lang={lang}
+                lang={lang}
               />
             ) : (
               <LuckyWheel 
@@ -162,7 +164,7 @@ export default function Home({ lang, setLang }: HomeProps) {
                 isCharging={isCharging}
                 onChargeStart={handleChargeStart}
                 onChargeEnd={handleChargeEnd}
-                // lang={lang}
+                lang={lang}
               />
             )
           )}
