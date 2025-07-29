@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import styles from './ResultDisplay.module.css';
+import { t, Lang } from '@/lib/i18n';
 
 interface ResultDisplayProps {
   result: string;
   tryAgain: () => void;
   resetGame: () => void;
+  lang: Lang;
 }
 
-export default function ResultDisplay({ result, tryAgain, resetGame }: ResultDisplayProps) {
+export default function ResultDisplay({ result, tryAgain, resetGame, lang }: ResultDisplayProps) {
   return (
     <motion.div
       className={styles['result-root']}
@@ -20,8 +22,8 @@ export default function ResultDisplay({ result, tryAgain, resetGame }: ResultDis
         <div className={styles['result-header-icon']}>
           <i className="fa-solid fa-star"></i>
         </div>
-        <h2 className={styles['result-title']}>抓阄结果</h2>
-        <p className={styles['result-desc']}>命运的选择是...</p>
+        <h2 className={styles['result-title']}>{t(lang, 'result_title')}</h2>
+        <p className={styles['result-desc']}>{t(lang, 'result_desc')}</p>
       </div>
       <div className={styles['result-value-wrap']}>
         <motion.div
@@ -39,14 +41,14 @@ export default function ResultDisplay({ result, tryAgain, resetGame }: ResultDis
           className={styles['result-btn'] + ' ' + styles['result-btn-try']}
         >
           <i className="fa-solid fa-redo"></i>
-          <span>再试一次</span>
+          <span>{t(lang, 'result_try_again')}</span>
         </button>
         <button
           onClick={resetGame}
           className={styles['result-btn'] + ' ' + styles['result-btn-reset']}
         >
           <i className="fa-solid fa-edit"></i>
-          <span>重新输入</span>
+          <span>{t(lang, 'result_reset')}</span>
         </button>
       </div>
     </motion.div>

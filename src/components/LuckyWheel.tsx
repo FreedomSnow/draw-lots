@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import styles from './LuckyWheel.module.css';
+import { t, Lang } from '@/lib/i18n';
 
 // 定义赤橙黄绿青蓝紫七种基础颜色
 const getSegmentColor = (index: number) => {
@@ -23,6 +24,7 @@ interface LuckyWheelProps {
   isCharging: boolean;
   onChargeStart: () => void;
   onChargeEnd: () => void;
+  lang: Lang;
 }
 
 export default function LuckyWheel({ 
@@ -31,7 +33,8 @@ export default function LuckyWheel({
   power, 
   isCharging,
   onChargeStart,
-  onChargeEnd
+  onChargeEnd,
+  lang
 }: LuckyWheelProps) {
   const segmentAngle = 360 / options.length;
   
@@ -94,7 +97,7 @@ export default function LuckyWheel({
       {/* 蓄力区域 */}
       <div className={styles['luckywheel-power-wrap']}>
         <div className={styles['luckywheel-power-label']}>
-          <span>蓄力</span>
+          <span>{t(lang, 'luckywheel_power')}</span>
           <span>{power}%</span>
         </div>
         {/* 蓄力进度条 */}
@@ -119,17 +122,17 @@ export default function LuckyWheel({
           {isSpinning ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
               <i className="fa-solid fa-spinner fa-spin"></i>
-              <span>转盘转动中...</span>
+              <span>{t(lang, 'luckywheel_spinning')}</span>
             </div>
           ) : isCharging ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
               <i className="fa-solid fa-bolt"></i>
-              <span>释放开始旋转!</span>
+              <span>{t(lang, 'luckywheel_release')}</span>
             </div>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
               <i className="fa-solid fa-hand-paper"></i>
-              <span>长按蓄力</span>
+              <span>{t(lang, 'luckywheel_charge')}</span>
             </div>
           )}
         </button>

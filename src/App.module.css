@@ -14,7 +14,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: linear-gradient(to bottom, #18181b, #09090b);
+  background: transparent;
 }
 .app-title {
   font-family: 'Raleway', sans-serif;
