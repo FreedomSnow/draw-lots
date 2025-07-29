@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './Home.module.css';
 import LotteryJar from '@/components/LotteryJar';
 import LuckyWheel from '@/components/LuckyWheel';
@@ -14,43 +14,62 @@ interface HomeProps {
 
 export default function Home({ lang, setLang }: HomeProps) {
   // 状态管理
-  const [mode, setMode] = useState<'jar' | 'wheel'>('jar');
+  const [mode, setMode] = useState<'jar' | 'wheel'>("jar");
   const [options, setOptions] = useState<string[]>([]);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [result, setResult] = useState<string | null>(null);
   const [power, setPower] = useState<number>(0);
   const [isCharging, setIsCharging] = useState<boolean>(false);
 
+  // 日志：每次result变化时打印
+  useEffect(() => {
+    console.log('[LOG] result changed:', result);
+  }, [result]);
+
+  useEffect(() => {
+    console.log('[LOG] options changed:', options);
+  }, [options]);
+
   // 处理选项变化
   const handleOptionsChange = (newOptions: string[]) => {
+    console.log('[LOG] handleOptionsChange', newOptions);
     setOptions(newOptions);
     setResult(null); // 重置结果
   };
 
   // 开始抓阄（罐子模式）
   const startDrawing = () => {
-    if (options.length < 2) return;
+    console.log('[LOG] startDrawing called, options:', options);
+    if (options.length < 2) {
+      console.log('[LOG] startDrawing aborted: options.length < 2');
+      return;
+    }
     setIsDrawing(true);
-    
     // 模拟抓阄过程
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * options.length);
-      setResult(options[randomIndex]);
+      const selected = options[randomIndex];
+      console.log('[LOG] startDrawing result:', selected);
+      setResult(selected);
       setIsDrawing(false);
     }, 2000);
   };
 
   // 开始旋转（转盘模式）
   const startSpinning = () => {
-    if (options.length < 2 || power < 10) return;
+    console.log('[LOG] startSpinning called, options:', options, 'power:', power);
+    if (options.length < 2 || power < 10) {
+      console.log('[LOG] startSpinning aborted: options.length < 2 or power < 10');
+      return;
+    }
     setIsDrawing(true);
-    
     // 旋转时间基于蓄力值（3000ms - 8000ms）
     const spinDuration = 3000 + (power / 100) * 5000;
-    
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * options.length);
-      setResult(options[randomIndex]);
+      const selected = options[randomIndex];
+      console.log('[LOG] startSpinning result:', selected);
+      setResult(selected);
       setIsDrawing(false);
       setPower(0);
     }, spinDuration);
@@ -58,6 +77,7 @@ export default function Home({ lang, setLang }: HomeProps) {
 
   // 处理蓄力
   const handleChargeStart = () => {
+    console.log('[LOG] handleChargeStart');
     setIsCharging(true);
     const chargeInterval = setInterval(() => {
       setPower(prev => {
@@ -69,7 +89,6 @@ export default function Home({ lang, setLang }: HomeProps) {
         return prev + 2;
       });
     }, 30);
-    
     // 存储interval以便清除
     setPowerInterval(chargeInterval);
   };
@@ -77,6 +96,7 @@ export default function Home({ lang, setLang }: HomeProps) {
   const [powerInterval, setPowerInterval] = useState<number | null>(null);
   
   const handleChargeEnd = () => {
+    console.log('[LOG] handleChargeEnd, power:', power);
     if (powerInterval) {
       clearInterval(powerInterval);
       setPowerInterval(null);
@@ -89,6 +109,7 @@ export default function Home({ lang, setLang }: HomeProps) {
 
   // 重置游戏
   const resetGame = () => {
+    console.log('[LOG] resetGame');
     setOptions([]);
     setResult(null);
     setPower(0);
@@ -96,6 +117,7 @@ export default function Home({ lang, setLang }: HomeProps) {
 
   // 再试一次
   const tryAgain = () => {
+    console.log('[LOG] tryAgain');
     setResult(null);
     setPower(0);
   };
@@ -113,43 +135,39 @@ export default function Home({ lang, setLang }: HomeProps) {
         </div>
       </div>
       {/* 底部层：模式选择和抓阄区域 */}
-      {options.length >= 2 && (
-        <div className={styles['home-bottom']}>
-          <div className={styles['home-bottom-inner']}>
-            <ModeSelector mode={mode} setMode={setMode} />
-            {/* 抓阄区域 */}
-            {!result ? (
-              mode === 'jar' ? (
-                <LotteryJar 
-                  options={options} 
-                  isDrawing={isDrawing}
-                  startDrawing={startDrawing}
-                  drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
-                  // lang={lang}
-                />
-              ) : (
-                <LuckyWheel 
-                  options={options} 
-                  isSpinning={isDrawing}
-                  power={power}
-                  isCharging={isCharging}
-                  onChargeStart={handleChargeStart}
-                  onChargeEnd={handleChargeEnd}
-                  // lang={lang}
-                />
-              )
-            ) : null}
-            {/* 结果展示 */}
-            {result && (
-              <ResultDisplay 
-                result={result} 
-                tryAgain={tryAgain} 
-                resetGame={resetGame}
+      <div className={styles['home-bottom']}>
+        <div className={styles['home-bottom-inner']}>
+          <ModeSelector mode={mode} setMode={setMode} />
+          {/* 抓阄区域 */}
+          {result ? (
+            <ResultDisplay 
+              result={result} 
+              tryAgain={tryAgain} 
+              resetGame={resetGame}
+            />
+          ) : (
+            mode === 'jar' ? (
+              <LotteryJar 
+                options={options} 
+                isDrawing={isDrawing}
+                startDrawing={startDrawing}
+                drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
+                // lang={lang}
               />
-            )}
-          </div>
+            ) : (
+              <LuckyWheel 
+                options={options} 
+                isSpinning={isDrawing}
+                power={power}
+                isCharging={isCharging}
+                onChargeStart={handleChargeStart}
+                onChargeEnd={handleChargeEnd}
+                // lang={lang}
+              />
+            )
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

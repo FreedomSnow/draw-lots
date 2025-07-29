@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
-  /* background-color: yellow; */
+  background: transparent;
 }
 
 .home-input {
@@ -28,7 +28,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
-  /* background: blue; */
+  background: transparent;
 }
 
 .home-bottom-inner {
@@ -37,15 +37,13 @@
   max-width: 28rem;
 }
 
-.home-empty {
+/* .home-empty {
   padding: 1.5rem;
-  /* background: rgba(31,41,55,0.5); */
+  background: rgba(31,41,55,0.5);
   border-radius: 0.75rem;
   border: 1px solid #27272a;
   text-align: center;
-  background: #6b7280;
 }
-
 .home-empty-icon {
   width: 6rem;
   height: 6rem;
@@ -57,16 +55,12 @@
   background: rgba(55,65,81,0.3);
   border-radius: 9999px;
 }
-
-/* 空提示文字样式 */
 .home-empty-tip {
   color: #9ca3af;
   margin-bottom: 16px;
 }
-
-/* 空icon样式 */
 .home-empty-icon i {
   color: #6b7280;
   font-size: 32px;
-}
+} */
 
