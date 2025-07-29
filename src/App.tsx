@@ -2,6 +2,7 @@ import { useState, useRef, createContext, Dispatch, SetStateAction, useEffect } 
 import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
 import { t, Lang } from '@/lib/i18n';
+import styles from './App.module.css';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -37,18 +38,18 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout }}>
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div className={styles['app-root']}>
         {/* 顶部栏 */}
-        <div className="app-header">
-          <div className="app-title">
+        <div className={styles['app-header']}>
+          <div className={styles['app-title']}>
             {t(lang, 'siteName')}
           </div>
-          <div className="app-header-actions">
+          <div className={styles['app-header-actions']}>
             {/* 语言选择按钮 */}
-            <div className="app-lang-menu-wrap">
+            <div className={styles['app-lang-menu-wrap']}>
               <button
                 ref={langBtnRef}
-                className="app-lang-btn"
+                className={styles['app-lang-btn']}
                 onClick={() => setLangMenuOpen(v => !v)}
               >
                 <i className="fa-solid fa-language" style={{ marginRight: 4 }}></i>
@@ -56,11 +57,11 @@ export default function App() {
                 <i className="fa-solid fa-chevron-down" style={{ marginLeft: 4, fontSize: 12 }}></i>
               </button>
               {langMenuOpen && (
-                <div className="app-lang-menu">
+                <div className={styles['app-lang-menu']}>
                   {LANGUAGES.map(l => (
                     <button
                       key={l.code}
-                      className={"app-lang-menu-btn" + (l.code === lang ? ' selected' : '')}
+                      className={styles['app-lang-menu-btn'] + (l.code === lang ? ' ' + styles['selected'] : '')}
                       onClick={() => { setLang(l.code); setLangMenuOpen(false); }}
                     >
                       {l.label}
@@ -71,7 +72,7 @@ export default function App() {
             </div>
             {/* 联系我们按钮 */}
             <button
-              className="app-contact-btn"
+              className={styles['app-contact-btn']}
               onClick={() => window.open('mailto:contact@example.com', '_blank')}
             >
               {t(lang, 'contactUs')}
@@ -79,11 +80,14 @@ export default function App() {
           </div>
         </div>
         {/* 下部分内容区域 */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div className={styles['app-content']}>
           <Routes>
             <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
-            <Route path="/other" element={<div className="text-center text-xl">Other Page - Coming Soon</div>} />
+            <Route path="/other" element={<div style={{textAlign:'center',fontSize:'1.25rem'}}>Other Page - Coming Soon</div>} />
           </Routes>
+        </div>
+        <div className={styles['app-footer']}>
+          <p>{t(lang, 'siteName')} &copy; {new Date().getFullYear()}</p>
         </div>
       </div>
     </AuthContext.Provider>

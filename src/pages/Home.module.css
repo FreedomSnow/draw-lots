@@ -1,52 +1,49 @@
 /* 页面根容器样式 */
 .home-root {
-  min-height: 100vh;
+  min-height: 0;
+  max-height: 100vh;
+  overflow-y: auto;
   color: #f3f4f6;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0;
-  /* background: linear-gradient(to bottom, #18181b, #09090b); */
-  /* background-color: red; */
+  background: linear-gradient(to bottom, #18181b, #09090b);
 }
 
 .home-top {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  margin: 20px 0;
+  padding-top: 30px;
   /* background-color: yellow; */
 }
 
 .home-input {
   width: 100%;
   max-width: 28rem;
-  margin: 10px 10px;
-  /* background-color: blue; */
+  margin: 0;
 }
 
 .home-bottom {
-  width: 100%;
-  max-width: 28rem;
-  margin: 0 auto;
-  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  /* background: blue; */
 }
 
 .home-bottom-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  gap: 0;
+  width: 100%;
+  max-width: 28rem;
 }
 
 .home-empty {
-  margin-top: 1.5rem;
   padding: 1.5rem;
-  background: rgba(31,41,55,0.5);
+  /* background: rgba(31,41,55,0.5); */
   border-radius: 0.75rem;
   border: 1px solid #27272a;
   text-align: center;
+  background: #6b7280;
 }
 
 .home-empty-icon {
@@ -61,13 +58,6 @@
   border-radius: 9999px;
 }
 
-.home-footer {
-  text-align: center;
-  color: #6b7280;
-  font-size: 0.75rem;
-  margin-top: 2rem;
-}
-
 /* 空提示文字样式 */
 .home-empty-tip {
   color: #9ca3af;
@@ -79,3 +69,4 @@
   color: #6b7280;
   font-size: 32px;
 }
+

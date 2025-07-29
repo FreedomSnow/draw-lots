@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import styles from './Home.module.css';
 import LotteryJar from '@/components/LotteryJar';
-import LuckyWheel from '@/components/luckywheel/LuckyWheel';
+import LuckyWheel from '@/components/LuckyWheel';
 import OptionInput from '@/components/OptionInput';
 import ResultDisplay from '@/components/ResultDisplay';
 import ModeSelector from '@/components/ModeSelector';
@@ -112,58 +112,44 @@ export default function Home({ lang, setLang }: HomeProps) {
           />
         </div>
       </div>
-
       {/* 底部层：模式选择和抓阄区域 */}
-      <div className={styles['home-bottom']}>
-        <div className={styles['home-bottom-inner']}>
-          <ModeSelector mode={mode} setMode={setMode} />
-          {/* 抓阄区域 */}
-          {options.length >= 2 && !result ? (
-            mode === 'jar' ? (
-              <LotteryJar 
-                options={options} 
-                isDrawing={isDrawing}
-                startDrawing={startDrawing}
-                drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
-                // lang={lang}
+      {options.length >= 2 && (
+        <div className={styles['home-bottom']}>
+          <div className={styles['home-bottom-inner']}>
+            <ModeSelector mode={mode} setMode={setMode} />
+            {/* 抓阄区域 */}
+            {!result ? (
+              mode === 'jar' ? (
+                <LotteryJar 
+                  options={options} 
+                  isDrawing={isDrawing}
+                  startDrawing={startDrawing}
+                  drawingDuration={isDrawing ? 5000 + Math.random() * 5000 : 0}
+                  // lang={lang}
+                />
+              ) : (
+                <LuckyWheel 
+                  options={options} 
+                  isSpinning={isDrawing}
+                  power={power}
+                  isCharging={isCharging}
+                  onChargeStart={handleChargeStart}
+                  onChargeEnd={handleChargeEnd}
+                  // lang={lang}
+                />
+              )
+            ) : null}
+            {/* 结果展示 */}
+            {result && (
+              <ResultDisplay 
+                result={result} 
+                tryAgain={tryAgain} 
+                resetGame={resetGame}
               />
-            ) : (
-              <LuckyWheel 
-                options={options} 
-                isSpinning={isDrawing}
-                power={power}
-                isCharging={isCharging}
-                onChargeStart={handleChargeStart}
-                onChargeEnd={handleChargeEnd}
-                // lang={lang}
-              />
-            )
-          ) : options.length < 2 && !result ? (
-            <div className={styles['home-empty']}>
-              <p className={styles['home-empty-tip']}>{t(lang, 'pleaseInput2')}</p>
-              <div className={styles['home-empty-icon']}>
-                {mode === 'jar' ? (
-                  <i className="fa-solid fa-jar-wheat" ></i>
-                ) : (
-                  <i className="fa-solid fa-circle-notch" ></i>
-                )}
-              </div>
-            </div>
-          ) : null}
-          {/* 结果展示 */}
-          {result && (
-            <ResultDisplay 
-              result={result} 
-              tryAgain={tryAgain} 
-              resetGame={resetGame}
-            />
-          )}
+            )}
+          </div>
         </div>
-        {/* 页脚 */}
-        <div className={styles['home-footer']}>
-          <p>{t(lang, 'siteName')} &copy; {new Date().getFullYear()}</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
