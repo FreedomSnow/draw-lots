@@ -33,10 +33,20 @@ export default function Home({ lang }: HomeProps) {
     console.log('[LOG] options changed:', options);
   }, [options]);
 
+  // 洗牌算法
+  const shuffle = (arr: string[]) => {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   // 处理选项变化
   const handleOptionsChange = (newOptions: string[]) => {
     console.log('[LOG] handleOptionsChange', newOptions);
-    setOptions(newOptions);
+    setOptions(shuffle(newOptions));
     setResult(null); // 重置结果
   };
 
@@ -134,6 +144,7 @@ export default function Home({ lang }: HomeProps) {
     setIsCharging(false);
     setRotateDeg(0);
     lastRotateRef.current = 0;
+    setOptions(prev => shuffle(prev));
   };
 
   return (
