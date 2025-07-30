@@ -12,9 +12,11 @@ const en = {
   option_tip: 'At least 2 options to start',
   option_placeholder: 'Enter option and add...',
   option_added: 'Added',
+  // LotteryJar
   lotteryjar_stick_label: 'Best Stick',
   lotteryjar_drawing: 'Drawing...',
   lotteryjar_start: 'Start Drawing',
+  // LuckyWheel
   luckywheel_power: 'Power',
   luckywheel_spinning: 'Spinning...',
   luckywheel_release: 'Release to spin!',
@@ -24,5 +26,22 @@ const en = {
   result_desc: 'The choice of fate is...',
   result_try_again: 'Try Again',
   result_reset: 'Input Again',
+  // ContactUs
+  contactus_title: "Contact Us",
+  contactus_name: "Name",
+  contactus_namePlaceholder: "Enter your name",
+  contactus_email: "Email",
+  contactus_emailPlaceholder: "Enter your email address",
+  contactus_subject: "Subject",
+  contactus_subjectPlaceholder: "Enter feedback subject",
+  contactus_message: "Message",
+  contactus_messagePlaceholder: "Please describe your issue or suggestion in detail...",
+  contactus_contactInfo: "Contact Information",
+  contactus_emailInfo: "Email: example@email.com",
+  contactus_responseTime: "We will respond to your message within 24 hours",
+  contactus_cancel: "Cancel",
+  contactus_submit: "Submit",
+  contactus_submitSuccess: "Thank you for your feedback! We will get back to you soon.",
+  contactus_submitError: "Submission failed, please try again later"
 };
 export default en;
