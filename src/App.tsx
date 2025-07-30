@@ -86,7 +86,7 @@ export default function App() {
         {/* 下部分内容区域 */}
         <div className={styles['app-content']}>
           <Routes>
-            <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
+            <Route path="/" element={<Home lang={lang} />} />
             <Route path="/other" element={<div style={{textAlign:'center',fontSize:'1.25rem'}}>Other Page - Coming Soon</div>} />
           </Routes>
         </div>

@@ -9,10 +9,9 @@ import { t, Lang } from '@/lib/i18n';
 
 interface HomeProps {
   lang: Lang;
-  setLang: (lang: Lang) => void;
 }
 
-export default function Home({ lang, setLang }: HomeProps) {
+export default function Home({ lang }: HomeProps) {
   // 状态管理
   const [mode, setMode] = useState<'jar' | 'wheel'>("jar");
   const [options, setOptions] = useState<string[]>([]);
@@ -20,6 +19,10 @@ export default function Home({ lang, setLang }: HomeProps) {
   const [result, setResult] = useState<string | null>(null);
   const [power, setPower] = useState<number>(0);
   const [isCharging, setIsCharging] = useState<boolean>(false);
+  // 新增：转盘旋转角度
+  const [rotateDeg, setRotateDeg] = useState<number>(0);
+  // 记录上一次的旋转角度，避免每次都从0开始
+  const lastRotateRef = useRef<number>(0);
 
   // 日志：每次result变化时打印
   useEffect(() => {
@@ -63,12 +66,20 @@ export default function Home({ lang, setLang }: HomeProps) {
       return;
     }
     setIsDrawing(true);
-    // 旋转时间基于蓄力值（3000ms - 8000ms）
-    const spinDuration = 3000 + (power / 100) * 5000;
+    // 随机选一个结果
+    const randomIndex = Math.floor(Math.random() * options.length);
+    const selected = options[randomIndex];
+    // 计算目标角度（每个扇区角度 = 360 / options.length，指针始终指向扇形中心）
+    const segAngle = 360 / options.length;
+    // 让转盘多转几圈再停到目标扇区
+    const extraRounds = 5 + Math.floor(power / 20); // 蓄力越大圈数越多
+    // 让指针正对扇形中心
+    const targetDeg = lastRotateRef.current + 360 * extraRounds + (360 - (randomIndex * segAngle + segAngle / 2));
+    setRotateDeg(targetDeg);
+    lastRotateRef.current = targetDeg % 360; // 记录本次结束后余数，避免溢出
+    // 动画时长比 LuckyWheel 动画长1秒
+    const spinDuration = 4000;
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * options.length);
-      const selected = options[randomIndex];
-      console.log('[LOG] startSpinning result:', selected);
       setResult(selected);
       setIsDrawing(false);
       setPower(0);
@@ -120,6 +131,9 @@ export default function Home({ lang, setLang }: HomeProps) {
     console.log('[LOG] tryAgain');
     setResult(null);
     setPower(0);
+    setIsCharging(false);
+    setRotateDeg(0);
+    lastRotateRef.current = 0;
   };
 
   return (
@@ -165,6 +179,7 @@ export default function Home({ lang, setLang }: HomeProps) {
                 onChargeStart={handleChargeStart}
                 onChargeEnd={handleChargeEnd}
                 lang={lang}
+                rotateDeg={rotateDeg}
               />
             )
           )}
