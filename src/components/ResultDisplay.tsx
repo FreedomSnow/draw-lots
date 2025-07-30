@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { toast } from 'sonner';
 import styles from './ResultDisplay.module.css';
 import { t, Lang } from '@/lib/i18n';
 

@@ -1,3 +1,9 @@
+.option-input-root i,
+.option-input-title-row i,
+.option-input-item-remove i {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'FontAwesome', Arial, sans-serif !important;
+  font-weight: 900;
+}
 /* 标题和添加按钮一行分布 */
 .option-input-title-row {
   display: flex;
