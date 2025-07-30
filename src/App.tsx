@@ -1,6 +1,7 @@
 import { useState, useRef, createContext, Dispatch, SetStateAction, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
+import ContactUs from '@/components/ContactUs/ContactUs';
 import { t, Lang } from '@/lib/i18n';
 import styles from './App.module.css';
 
@@ -18,6 +19,7 @@ export const AuthContext = createContext<AuthContextType>({
 
 
 export default function App() {
+  const [contactOpen, setContactOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [lang, setLang] = useState<Lang>(getDefaultLang());
 
@@ -73,16 +75,18 @@ export default function App() {
             {/* 联系我们按钮 */}
             <button
               className={styles['app-contact-btn']}
-              onClick={() => window.open('mailto:contact@example.com', '_blank')}
+              onClick={() => setContactOpen(true)}
             >
               {t(lang, 'contactUs')}
             </button>
           </div>
         </div>
+        {/* 联系我们弹窗 */}
+        <ContactUs isOpen={contactOpen} onClose={() => setContactOpen(false)} lang={lang} />
         {/* 下部分内容区域 */}
         <div className={styles['app-content']}>
           <Routes>
-            <Route path="/" element={<Home lang={lang} setLang={setLang} />} />
+            <Route path="/" element={<Home lang={lang} />} />
             <Route path="/other" element={<div style={{textAlign:'center',fontSize:'1.25rem'}}>Other Page - Coming Soon</div>} />
           </Routes>
         </div>

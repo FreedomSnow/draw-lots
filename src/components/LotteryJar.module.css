@@ -6,6 +6,11 @@
   margin-top: 2rem;
   /* background: green; */
 }
+.lotteryjar-root i,
+.lotteryjar-btn i {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'FontAwesome', Arial, sans-serif !important;
+  font-weight: 900;
+}
 .lotteryjar-jar-wrap {
   position: relative;
   width: 10rem;

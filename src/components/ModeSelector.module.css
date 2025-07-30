@@ -27,6 +27,10 @@
   justify-content: center;
   gap: 0.5rem;
 }
+.mode-selector-btn i {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'FontAwesome', Arial, sans-serif !important;
+  font-weight: 900;
+}
 .mode-selector-btn-jar {
   background: linear-gradient(to right, #a78bfa, #f472b6);
   color: #fff;
